@@ -1,0 +1,49 @@
+int trigPin = 9;
+int echoPin = 10;
+long duration;
+int distance;
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  Serial.begin(9600);
+}
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration/2)*0.0343;
+  Serial.println(distance);
+  delay(1000);}
+Second Arduino
+int motorPin1 = 2;
+int motorPin2 = 3;
+int motorPin3 = 4;
+int motorPin4 = 5;
+int enable = 11;
+int enable2 = 10;
+int distance;
+int speed=255;
+void setup() {
+  pinMode(motorPin1, OUTPUT);
+  pinMode(motorPin2, OUTPUT);
+  pinMode(motorPin3, OUTPUT);
+  pinMode(motorPin4, OUTPUT);
+  Serial.begin(9600);}
+void loop() {
+  if (Serial.available() > 0) {
+    distance = Serial.parseInt();
+    if (distance > 60) {
+      analogWrite(enable,speed);
+      analogWrite(enable2,speed);
+      digitalWrite(motorPin1, LOW);
+      digitalWrite(motorPin2, HIGH);
+      digitalWrite(motorPin3, LOW);
+      digitalWrite(motorPin4, HIGH);
+    } else if (distance < 20) {
+      digitalWrite(motorPin1, LOW);
+      digitalWrite(motorPin2, LOW);
+      digitalWrite(motorPin3, LOW);
+      digitalWrite(motorPin4, LOW);}  } }
